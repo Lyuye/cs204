@@ -14,15 +14,12 @@ import java.math.*;
 public class CreateNw implements Control {
 
 	private int pid = 0;
+
 	private static final String PAR_IDLENGTH = "idLength";
 
 	private static final String PAR_PROT = "protocol";
 
 	private static final String PAR_SUCCSIZE = "succListSize";
-	
-	private static final String PAR_COPYSIZE = "copysize";
-	
-	int copysize = 0;
 
 	int idLength = 0;
 
@@ -37,7 +34,6 @@ public class CreateNw implements Control {
 	 */
 	public CreateNw(String prefix) {
 		pid = Configuration.getPid(prefix + "." + PAR_PROT);
-		copysize = Configuration.getInt(prefix + "." + PAR_COPYSIZE);
 		idLength = Configuration.getInt(prefix + "." + PAR_IDLENGTH); 
 		successorLsize = Configuration.getInt(prefix + "." + PAR_SUCCSIZE); 
 	}
@@ -58,9 +54,6 @@ public class CreateNw implements Control {
 			cp.chordId = new BigInteger(idLength, CommonState.r);
 			cp.fingerTable = new Node[idLength];
 			cp.successorList = new Node[successorLsize];
-			cp.copyList = new Node[2*copysize];
-			cp.copysize = copysize;
-			cp.targetList = new Node[copysize];
 		}
 		NodeComparator nc = new NodeComparator(pid);
 		Network.sort(nc);
@@ -120,20 +113,7 @@ public class CreateNw implements Control {
 				if (a + i < (Network.size() - 1))
 					cp.successorList[a] = Network.get(a + i + 1);
 				else
-					cp.successorList[a] = Network.get(a + i -(Network.size() - 1));
-				 	//cp.successorList[a] = Network.get(a);
-			}
-			for (int a = 0; a < copysize; a++) {
-				if (a + i < (Network.size() - 1))
-					cp.copyList[a] = Network.get(a + i + 1);
-				else
-					cp.copyList[a] = Network.get(a + i -(Network.size() - 1));
-			}
-			for (int a = copysize; a < 2*copysize; a++) {
-				if (i - a + copysize > 0)
-					cp.copyList[a] = Network.get(i - a + copysize - 1);
-				else
-					cp.copyList[a] = Network.get(i - a + copysize - 1 + Network.size());
+					cp.successorList[a] = Network.get(a);
 			}
 			if (i > 0)
 				cp.predecessor = (Node) Network.get(i - 1);

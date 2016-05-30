@@ -10,23 +10,12 @@ public class LookUpMessage implements ChordMessage {
 	private BigInteger targetId;
 
 	private int hopCounter = -1;
-	
-	private Node[] targetList;
 
-	public LookUpMessage(Node sender, BigInteger targetId, Node[] targetList) {
+	public LookUpMessage(Node sender, BigInteger targetId) {
 		this.sender = sender;
 		this.targetId = targetId;
-		this.targetList = targetList;
 	}
-	
-	public Node[] gettargetList(){
-		return targetList;
-	}
-	
-	public void storetargetList(Node[] targetList){
-		this.targetList = targetList;
-	}
-	
+
 	public void increaseHopCounter() {
 		hopCounter++;
 	}

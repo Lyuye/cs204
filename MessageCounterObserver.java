@@ -98,8 +98,7 @@ public class MessageCounterObserver implements Control {
 	}
 
 	private int minArray(int[] array, int dim) {
-	    //int min = 0;
-		int min = Integer.MAX_VALUE;
+		int min = 0;
 		for (int j = 0; j < dim; j++) {
 			if (array[j] < min)
 				min = array[j];

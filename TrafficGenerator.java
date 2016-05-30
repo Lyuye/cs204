@@ -11,9 +11,7 @@ import peersim.edsim.EDSimulator;
  * @author Andrea
  * 
  */
-
 public class TrafficGenerator implements Control {
-	private Node[] targetList;
 
 	private static final String PAR_PROT = "protocol";
 
@@ -42,7 +40,7 @@ public class TrafficGenerator implements Control {
 		} while (sender == null || sender.isUp() == false || target == null
 				|| target.isUp() == false);
 		LookUpMessage message = new LookUpMessage(sender,
-				((ChordProtocol) target.getProtocol(pid)).chordId, targetList);
+				((ChordProtocol) target.getProtocol(pid)).chordId);
 		EDSimulator.add(10, message, sender, pid);
 		return false;
 	}

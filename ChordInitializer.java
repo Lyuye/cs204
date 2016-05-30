@@ -37,7 +37,7 @@ public class ChordInitializer implements NodeInitializer {
 		cp.chordId = new BigInteger(cp.m, CommonState.r);
 		ChordProtocol cpRemote = (ChordProtocol) n.getProtocol(pid);
 
-		Node successor = cpRemote.find_successor(cp.chordId)[0];
+		Node successor = cpRemote.find_successor(cp.chordId);
 		cp.fails = 0;
 		cp.stabilizations = 0;
 		cp.varSuccList = cpRemote.varSuccList;
@@ -56,7 +56,7 @@ public class ChordInitializer implements NodeInitializer {
 			if (((ChordProtocol) cp.successorList[0].getProtocol(pid)).chordId
 					.compareTo(cp.chordId) < 0) {
 				cp.successorList[0] = ((ChordProtocol) cp.successorList[0]
-						.getProtocol(pid)).find_successor(cp.chordId)[0];
+						.getProtocol(pid)).find_successor(cp.chordId);
 			}
 			// controllo di non essere l'ultimo elemento della rete
 			if (cp.chordId.compareTo(lastId) > 0) {
